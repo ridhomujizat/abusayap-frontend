@@ -91,19 +91,10 @@ class index extends Component {
       await this.setState({ isLoading: false })
     }
   }
-
-  // async componentDidMount () {
-  //   await this.props.contact(this.props.auth.token)
-  // }
   goToTransaction = async (value) => {
     await this.props.selectReceiver(value)
     this.props.history.push('/home-page/contact/input-amount')
   }
-  // changeText = (event) => {
-  //   this.setState({ [event.target.name]: event.target.value }, async () => {
-  //     await this.props.contact(this.props.auth.token, this.state.search)
-  //   })
-  // }
   render () {
     return (
       <Container fluid className="ContactContainer">
@@ -118,36 +109,37 @@ class index extends Component {
               </FormSearch>
             </Form>
             <div>
-              {this.props.user.contact
-                ? this.props.user.contact.map(item => {
+              {this.state.isLoading
+                ? (<div className="spinner"><Spinner animation="border" variant="success" /></div>)
+                : this.props.user.contact && this.props.user.contact.map(item => {
                   return (
                     <CardContact key={String(item.id)} data={item} onClick={() => this.goToTransaction(item)} />
                   )
                 })
-                : (<Spinner animation="border" variant="success" />)}
+              }
             </div>
           </Col>
         </Row>
         <Row>
-        <Col>
-          {this.props.user.pageInfo && (
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="text-300-12">
-              {`Total data ${this.props.user.contact ? this.props.user.pageInfo.totalData : '0'}`}
-            </div>
-            <div>
-              <Button className="btn outline-primary mr-3" onClick={this.prev}
-                disabled={!this.props.user.pageInfo.prevLink}
-              >Prev Link</Button>
-              <Button className="btn outline-primary" onClick={this.next}
-                disabled={!this.props.user.pageInfo.nextLink}
-              >Next Link</Button>
-            </div>
-            <div className="text-300-12">
-              {`Current Page ${this.props.user.pageInfo.currentPage} Total Page ${this.props.user.contact ? this.props.user.pageInfo.totalPage : '0'}`}
-            </div>
-          </div>
-          )}
+          <Col>
+            {this.props.user.pageInfo && (
+              <div className="d-flex justify-content-between align-items-center">
+                <div className="text-300-12">
+                  {`Total data ${this.props.user.contact ? this.props.user.pageInfo.totalData : '0'}`}
+                </div>
+                <div>
+                  <Button className="btn outline-primary mr-3" onClick={this.prev}
+                    disabled={!this.props.user.pageInfo.prevLink}
+                  >Prev Link</Button>
+                  <Button className="btn outline-primary" onClick={this.next}
+                    disabled={!this.props.user.pageInfo.nextLink}
+                  >Next Link</Button>
+                </div>
+                <div className="text-300-12">
+                  {`Current Page ${this.props.user.pageInfo.currentPage} Total Page ${this.props.user.contact ? this.props.user.pageInfo.totalPage : '0'}`}
+                </div>
+              </div>
+            )}
           </Col>
         </Row>
       </Container>
