@@ -14,7 +14,6 @@ class NavbarHome extends Component {
     notification: true
   }
   render () {
-    console.log(this.props.transaction)
     return (
       <Navbar className="nav-home">
         <Container>

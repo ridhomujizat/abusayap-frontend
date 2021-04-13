@@ -1,7 +1,13 @@
 const initialState = {
   results: null,
-  contact: null,
-  pageInfo: null,
+  contact: [],
+  pageInfo: {
+    totalData: 0,
+    currentPage: 1,
+    totalPage: 0,
+    nextLink: null,
+    prevLink: null
+  },
   errorMsg: '',
   notification: false
 

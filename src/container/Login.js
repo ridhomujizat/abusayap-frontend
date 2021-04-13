@@ -25,11 +25,16 @@ class Login extends Component {
     message: '',
     isLoading: false
   }
+  componentDidMount () {
+    const query = this.props.location.search
+    if (query.indexOf('success=true') !== -1) {
+      this.setState({ message: 'Reset password success' })
+    }
+  }
   loginPush = async (values) => {
     this.setState({ isLoading: true })
     await this.props.login(values.email, values.password)
     if (this.props.auth.token) {
-      console.log(this.props.auth.user.token)
       if (this.props.auth.user.role === 1) {
         if (this.props.location.state === undefined) {
           await this.setState({ isLoading: false })
@@ -67,7 +72,7 @@ class Login extends Component {
                 Transfering money is eassier than ever, you can access Abusayap wherever you are.
                 Desktop, laptop, mobile phone? we cover all of that for you!
             </p>
-              {this.state.message !== '' && <Alert variant="danger">{this.state.message}</Alert>}
+              {this.state.message !== '' && <Alert variant={this.state.message.indexOf('success') !== -1 ? 'success' : 'danger'}>{this.state.message}</Alert>}
               <Formik
                 initialValues={{ email: '', password: '' }}
                 validationSchema={validationSchema}

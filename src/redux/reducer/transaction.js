@@ -1,10 +1,16 @@
 const initialState = {
   results: null,
   amountTransaction: null,
-  transactionHistory: null,
+  transactionHistory: [],
   receiver: null,
   confirmation: null,
-  pageInfo: null,
+  pageInfo: {
+    totalData: 0,
+    currentPage: 1,
+    totalPage: 0,
+    nextLink: null,
+    prevLink: null
+  },
   errorMsg: ''
 }
 
